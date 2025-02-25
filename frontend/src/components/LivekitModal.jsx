@@ -22,7 +22,7 @@ const LivekitModal = ({setShowSupport}) => {
                 ) : (
                     <LiveKitRoom
                     serverUrl={import.meta.env.VITE_LIVEKIT_URL}
-                    token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDA0NDM0OTUsImlzcyI6IkFQSWV6VjhlZkhNV1NDRCIsIm5iZiI6MTc0MDQ0MjU5NSwic3ViIjoiSk9TRVBIIiwidmlkZW8iOnsiY2FuUHVibGlzaCI6dHJ1ZSwiY2FuUHVibGlzaERhdGEiOnRydWUsImNhblN1YnNjcmliZSI6dHJ1ZSwicm9vbSI6IlJPT00xIiwicm9vbUpvaW4iOnRydWV9fQ.opyLh6NgLAMg32iGug9SgGZNBVdKsrCulyjW1sgOLUs'
+                    token=''
                     connect={true}
                     video={false}
                     audio={true}
