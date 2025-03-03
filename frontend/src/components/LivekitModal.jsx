@@ -3,47 +3,29 @@ import { LiveKitRoom, RoomAudioRenderer } from "@livekit/components-react";
 import "@livekit/components-styles";
 import SimpleVoiceAssistant from "./SimpleVoiceAssistant";
 
-const LiveKitModal = ({ setShowSupport }) => {
+const LivekitModal = ({ setShowSupport }) => {
 	const [isSubmittingName, setIsSubmittingName] = useState(true);
 	const [name, setName] = useState("");
-	const [token, setToken] = useState(null);
 
-	const getToken = useCallback(async (userName) => {
-		try {
-			console.log("run");
-			const response = await fetch(`/api/getToken?name=${encodeURIComponent(userName)}`);
-			const token = await response.text();
-			setToken(token);
-			setIsSubmittingName(false);
-		} catch (error) {
-			console.error(error);
-		}
-	}, []);
-
-	const handleNameSubmit = (e) => {
-		e.preventDefault();
-		if (name.trim()) {
-			getToken(name);
-		}
-	};
+	const handleSubmitName = () => {};
 
 	return (
 		<div className="modal-overlay">
 			<div className="modal-content">
 				<div className="support-room">
 					{isSubmittingName ? (
-						<form onSubmit={handleNameSubmit} className="name-form">
-							<h2>Enter your name to connect with support</h2>
+						<form onSubmit={handleSubmitName} className="name-form">
+							<h2>Enter your name to connect to support</h2>
 							<input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Your name" required />
 							<button type="submit">Connect</button>
 							<button type="button" className="cancel-button" onClick={() => setShowSupport(false)}>
 								Cancel
 							</button>
 						</form>
-					) : token ? (
+					) : (
 						<LiveKitRoom
 							serverUrl={import.meta.env.VITE_LIVEKIT_URL}
-							token={token}
+							token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDA0NDM0OTUsImlzcyI6IkFQSWV6VjhlZkhNV1NDRCIsIm5iZiI6MTc0MDQ0MjU5NSwic3ViIjoiSk9TRVBIIiwidmlkZW8iOnsiY2FuUHVibGlzaCI6dHJ1ZSwiY2FuUHVibGlzaERhdGEiOnRydWUsImNhblN1YnNjcmliZSI6dHJ1ZSwicm9vbSI6IlJPT00xIiwicm9vbUpvaW4iOnRydWV9fQ.opyLh6NgLAMg32iGug9SgGZNBVdKsrCulyjW1sgOLUs"
 							connect={true}
 							video={false}
 							audio={true}
@@ -51,14 +33,13 @@ const LiveKitModal = ({ setShowSupport }) => {
 								setShowSupport(false);
 								setIsSubmittingName(true);
 							}}>
-							<RoomAudioRenderer />
-							<SimpleVoiceAssistant />
+							<RoomAudioRenderer></RoomAudioRenderer>
 						</LiveKitRoom>
-					) : null}
+					)}
 				</div>
 			</div>
 		</div>
 	);
 };
 
-export default LiveKitModal;
+export default LivekitModal;
